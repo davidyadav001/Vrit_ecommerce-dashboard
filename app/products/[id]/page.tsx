@@ -5,6 +5,13 @@ import { Metadata } from 'next';
 import { ProductDetailClient } from './ProductDetailClient';
 import { augmentProduct } from '@/utils/productAugmenter';
 
+export async function generateStaticParams() {
+    const products = await productService.getAll();
+    return products.map((product) => ({
+        id: product.id.toString(),
+    }));
+}
+
 interface ProductDetailPageProps {
     params: { id: string };
 }
